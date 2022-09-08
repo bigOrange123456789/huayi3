@@ -158,8 +158,15 @@ export class Viewer
     // this.defaultCamera.rotation.set( -0.18589681069184721,  0.6590683541369203,  0.11466413855442507)
     this.activeCamera = this.defaultCamera;
     window.c=this.defaultCamera
-    window.c.position.set( 1829.8654993109885, 535.2076347016717, -1315.144204938446)
-    window.c.rotation.set( -0.9072125912965568,  -0.43724666620216973,  -0.49636092404314786)
+    // window.c.position.set(1849.562616502339, 69.33617617892469,  -1610.9347549670836)
+    // window.c.rotation.set(-1.585602892801581,  0.777187636188975,  1.5919084434849553)
+
+    // 1822.0650605241433, y: 110.12826758966594, z: -1558.9110840865233
+    window.c.rotation.set(0,0,0)
+    window.c.rotation.set(2.4044203651417053,  -0.6409547161054846,  2.6442174010233543)
+    window.c.position.set( 1748.0, -26.0, -1668.0)
+    window.c.position.set(1747,1,-1535)
+    // window.c.rotation.set( -0.9072125912965568,  -0.43724666620216973,  -0.49636092404314786)
   }
 
   addLights ()

@@ -1,4 +1,4 @@
-import { Viewer } from './viewer.js';
+import { Viewer } from './viewer.js';//import { Viewer } from './viewerSampling';//决定是进行正常加载展示，还是进行可见度采样
 // if(!window.loadSubZip3_worker0)window.loadSubZip3_worker0=new Worker("../lib/myWorker/loadSubZip.js")//决定是否使用双线程的方式加载
 class App
 {
