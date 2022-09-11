@@ -1,10 +1,12 @@
+window.SamplingOfVisibilityFlag=false//用于标记现在是可见度采样模式
 import {
   DirectionalLight,
   PointLight,
   PerspectiveCamera,
   Scene,
   WebGLRendererEx,
-  sRGBEncoding
+  sRGBEncoding,
+  Vector3
 } from '../lib/three/build/three';
 
 import Stats from '../lib/three/examples/jsm/libs/stats.module.js';
@@ -14,7 +16,7 @@ import {PlayerControl} from '../lib/myThree/PlayerControl.js';
 import { GUI } from 'dat.gui';
 
 import { SLMLoader } from '../lib/SLMLoader';
-
+import{MyUI} from "./MyUI.js"
 export class Viewer 
 {
   constructor (el, options) 
@@ -41,16 +43,49 @@ export class Viewer
     this.activeCamera = this.defaultCamera;
     this.scene.add(this.defaultCamera);
     this.activeCamera.layers.enableAll();
-
-    this.renderer = window.renderer = new WebGLRendererEx({antialias: true});
+    if(window.SamplingOfVisibilityFlag){
+      this.renderer = window.renderer =new WebGLRendererEx({
+        antialias: false,//关闭抗锯齿
+        preserveDrawingBuffer: true});//将每一帧缓存到renderer.domElement中
+        console.log("this.renderer",this.renderer)
+      this.renderer.outputEncoding = sRGBEncoding;
+      this.renderer.setClearColor(0xffffff);//(0xcccccc);
+    }else{
+      this.renderer = window.renderer = new WebGLRendererEx({antialias: true});
+      this.renderer.setClearColor(0x56BCEF);//this.renderer.setClearColor(0xcccccc);
+    }
     this.renderer.physicallyCorrectLights = true;
     this.renderer.outputEncoding = sRGBEncoding;
-    this.renderer.setClearColor(0x56BCEF);//this.renderer.setClearColor(0xcccccc);
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(el.clientWidth, el.clientHeight);
     this.renderer.autoClear = false;
-
-    new PlayerControl(this.activeCamera)
+    var center=new Vector3(1794.3531756550212,  16.657531728843477,  -1610.5862688933257)
+    var playerControl=new PlayerControl(
+      this.activeCamera,
+      center
+      )
+    
+    var width=window.innerWidth
+    var height=window.innerHeight
+    var ui=new MyUI()
+    var h0=height/20
+    new ui.Button('相机中心', 
+      "#D408AB", 
+      '#798099', 
+      '#51DF97',
+      (width/10)/6, 150,
+      h0*3, h0,
+      0,height/2,//位置
+      (b)=>{
+        console.log(b.innerHTML,b.innerHTML==="模型中心")
+        if(b.innerHTML==="模型中心"){
+          playerControl.mode=1
+          b.innerHTML="相机中心"
+        }else{
+          playerControl.mode=0
+          b.innerHTML="模型中心"
+        }
+    })
     window.camera=this.activeCamera
 
     this.el.appendChild(this.renderer.domElement);

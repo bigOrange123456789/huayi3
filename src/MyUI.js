@@ -217,11 +217,14 @@ class MyUI{
         this.Button=Button
         this.Input=Input
 
+        
+        //this.computeOptStep()
+    }
+    init(){
         this.showCameraState()
         this.tag0=new this.Text( "", 0,3*60,3)//用于输出程序进度
         this.tag1=new this.Text( "", 0,3*70,3)//用于输出程序起始时间
         this.createInput()
-        //this.computeOptStep()
     }
     showCameraState(){
         var s1=new this.Text( "", 0*5,0,3)
