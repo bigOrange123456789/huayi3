@@ -59,7 +59,7 @@ export class Viewer
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(el.clientWidth, el.clientHeight);
     this.renderer.autoClear = false;
-    var center=new Vector3(1794.3531756550212,  16.657531728843477,  -1610.5862688933257)
+    var center=new Vector3(window.config.center[0],window.config.center[1],window.config.center[2])
     var playerControl=new PlayerControl(
       this.activeCamera,
       center

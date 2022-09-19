@@ -9,7 +9,7 @@ def getJson(path):
 
 
 #################################加载json文件############################################
-scene_names=["huayi_113"]
+scene_names=["huayi_133","huayi_113"]
 data={}
 data_scene0={}
 scene_name0=""
@@ -29,7 +29,6 @@ for name in scene_names:
 #################################建立服务器############################################
 from flask import Flask
 from flask import request
-import numpy as np
 app=Flask(__name__)
 
 # 跨域支持
