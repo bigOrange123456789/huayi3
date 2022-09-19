@@ -9,18 +9,22 @@ def getJson(path):
 
 
 #################################加载json文件############################################
+scene_names=["huayi_113"]
 data={}
+data_scene0={}
+scene_name0=""
 def finish():
     print("finish")
 def load0(index):
-  fileName = 'dist/visibility/['+str(index)+']7.ls_d_index.json'
-  jsonData = getJson(fileName)
+  fileName = 'dist/assets/visibility/'+scene_name0+'/['+str(index)+']7.ls_d_index.json'
   print(fileName)
-  data[str(index)]=jsonData
+  jsonData = getJson(fileName)
+  data_scene0[str(index)]=jsonData
   if(index+1<=6):load0(index+1)
-
-
-
+for name in scene_names:
+    scene_name0=name
+    load0(1)
+    data[name]=data_scene0
 
 #################################建立服务器############################################
 from flask import Flask
@@ -38,16 +42,18 @@ app.after_request(after_request)
 
 @app.route("/")
 def process():
+    sceneName=request.args.get('sceneName')
     index=request.args.get('text')#解析地址栏
     data0={}
-    for i in range(6):
-        i=str(i+1)
-        if(index in data[i]):list=data[i][index]
-        else:list=[]
-        data0[i]=list
+    if sceneName in data:
+        for i in range(6):
+            i=str(i+1)
+            if(index in data[sceneName][i]):list=data[sceneName][i][index]
+            else:list=[]
+            data0[i]=list
     return {'index':index,'data0':data0}
 
 if __name__=="__main__":
-    load0(1)
+    
     print(app.url_map)
     app.run(host="0.0.0.0", port=int("5000"))# app.run(host="0.0.0.0", port=int("5000"), debug=True)# app.run()
