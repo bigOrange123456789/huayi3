@@ -9,7 +9,7 @@ def getJson(path):
 
 
 #################################加载json文件############################################
-scene_names=["huayi_133","huayi_113"]
+scene_names=["huayi_113"]#["huayi_133","huayi_113"]
 data={}
 data_scene0={}
 scene_name0=""
