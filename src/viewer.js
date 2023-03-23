@@ -61,9 +61,14 @@ export class Viewer
     this.renderer.autoClear = false;
     var center=new Vector3(window.config.center[0],window.config.center[1],window.config.center[2])
     var playerControl=new PlayerControl(
-      this.activeCamera,
-      center
+      this.activeCamera//,center
       )
+    playerControl.target.set(
+      center.x,
+      center.y,
+      center.z
+    )
+    playerControl.mode.set("model")
     
     var width=window.innerWidth
     var height=window.innerHeight
@@ -79,10 +84,10 @@ export class Viewer
       (b)=>{
         console.log(b.innerHTML,b.innerHTML==="模型中心")
         if(b.innerHTML==="模型中心"){
-          playerControl.mode=1
+          playerControl.mode.set("model")//=1
           b.innerHTML="相机中心"
         }else{
-          playerControl.mode=0
+          playerControl.mode.set("viewpoint")//=0
           b.innerHTML="模型中心"
         }
     })
